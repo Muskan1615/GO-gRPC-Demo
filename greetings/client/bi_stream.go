@@ -16,7 +16,7 @@ func callHelloBidirectionalStream(client pb.GreetingsClient, names *pb.NamesList
 	}
 	waitc := make(chan struct{})
 	go func() {
-		// defer close(waitc)
+		defer close(waitc)
 		for {
 			message, err := stream.Recv()
 			if err == io.EOF {
@@ -27,7 +27,6 @@ func callHelloBidirectionalStream(client pb.GreetingsClient, names *pb.NamesList
 			}
 			log.Println(message)
 		}
-		close(waitc)
 	}()
 
 	for _, name := range names.Names {
