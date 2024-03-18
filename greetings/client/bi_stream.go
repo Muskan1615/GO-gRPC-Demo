@@ -12,7 +12,7 @@ func callHelloBidirectionalStream(client pb.GreetingsClient, names *pb.NamesList
 	log.Printf("Bidirectional streaming started")
 	stream, err := client.SayHelloBidirectionalStreaming(context.Background())
 	if err != nil {
-		log.Printf("Could not sent names: %v", err)
+		log.Fatalf("Could not sent names: %v", err)
 	}
 	waitc := make(chan struct{})
 	go func() {
@@ -23,7 +23,7 @@ func callHelloBidirectionalStream(client pb.GreetingsClient, names *pb.NamesList
 				break
 			}
 			if err != nil {
-				log.Printf("Error while streaming %v", err)
+				log.Fatalf("Error while streaming %v", err)
 			}
 			log.Println(message)
 		}
@@ -36,7 +36,7 @@ func callHelloBidirectionalStream(client pb.GreetingsClient, names *pb.NamesList
 			Age:  name.Age,
 		}
 		if err := stream.Send(req); err != nil {
-			log.Printf("Error while sending %v", err)
+			log.Fatalf("Error while sending %v", err)
 		}
 		time.Sleep(2 * time.Second)
 	}

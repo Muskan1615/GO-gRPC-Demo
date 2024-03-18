@@ -15,7 +15,7 @@ const address = "localhost:50051"
 func main() {
 	conn, err := grpc.Dial(address, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
-		log.Printf("Did not connect: %v", err)
+		log.Fatalf("Did not connect: %v", err)
 	}
 	defer conn.Close()
 
@@ -29,7 +29,7 @@ func main() {
 	for name, age := range newUsers {
 		res, err := c.CreateNewUser(ctx, &pb.NewUser{Name: name, Age: age})
 		if err != nil {
-			log.Printf("Could not create user: %v", err)
+			log.Fatalf("Could not create user: %v", err)
 		}
 		log.Printf(`
 		User Details:

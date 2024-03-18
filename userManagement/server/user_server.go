@@ -25,12 +25,12 @@ func (s *UserManagementServer) CreateNewUser(ctx context.Context, newUser *pb.Ne
 func main() {
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
-		log.Printf("Failed to listen: %v", err)
+		log.Fatalf("Failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
 	pb.RegisterUserManagementServer(s, &UserManagementServer{})
 	log.Printf("Server listening on port %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {
-		log.Printf("Failed to serve: %v", err)
+		log.Fatalf("Failed to serve: %v", err)
 	}
 }

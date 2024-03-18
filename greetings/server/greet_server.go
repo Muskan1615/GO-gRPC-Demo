@@ -17,12 +17,12 @@ type GreetingsServer struct {
 func main() {
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
-		log.Printf("Failed to listen: %v", err)
+		log.Fatalf("Failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
 	pb.RegisterGreetingsServer(s, &GreetingsServer{})
 	log.Printf("Server listening on port %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {
-		log.Printf("Failed to serve: %v", err)
+		log.Fatalf("Failed to serve: %v", err)
 	}
 }
